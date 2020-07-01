@@ -5,19 +5,22 @@ Vue及びVuexの理解を目的として実施します。
 
 [完成見本](https://suke-bita.github.io/vue-calendar-for-beginner-example/)
 
-## Usage
+## 使い方
 ```
 yarn install
 yarn dev
 ```
 
-## Rule
-html5で追加された要素を利用したセマンティクスを考慮せずともよい。  
-scssは[MindBEMding](https://github.com/manabuyasuda/styleguide/blob/master/how-to-bem.md)、CSS modulesで書く  
-linterエラーは極力コメントアウト回避しない  
-VueとVuexを利用する  
-レスポンシブ（極端にウィンドウを小さくした場合の崩れは考慮しなくてよい）  
-Vueのライブラリの利用は禁止
+## ルール
+- 確認するブラウザはPC Chromeだけでよいです
+- html5で追加された要素を利用したセマンティクスを考慮せずともよい
+- scssは[MindBEMding](https://github.com/manabuyasuda/styleguide/blob/master/how-to-bem.md)に沿って書くこと
+- JavascriptはES6以上で書くこと
+- VueのスタイルはCSS modulesを利用
+- Vueのライブラリの利用でカレンダーやモーダルを作るのはダメです、自力で頑張ろう
+- VueとVuexを利用する
+- lintエラーはコメントアウト回避を極力しない
+- レスポンシブ（極端にウィンドウを小さくした場合の崩れは考慮しなくてよい）
 
 ## 祝日API
 祝日取得に利用するAPIはサードパーティでも自分で用意してもよい。  
