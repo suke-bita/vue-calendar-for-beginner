@@ -1,7 +1,7 @@
 # vue-calendar-for-beginner
 Vue及びVuexの理解を目的として実施します。  
 カレンダーとタスク保存機能を作成し、ローカル環境で見られるようにしてください。  
-完了目標は7人日です。  
+完了目標は5人日です。  
 
 [完成見本](https://suke-bita.github.io/vue-calendar-for-beginner-example/)
 
