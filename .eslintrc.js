@@ -12,25 +12,33 @@ module.exports = {
     'prettier/vue',
   ],
   env: {
-    'browser': true,
-    'node': true
+    browser: true,
+    node: true,
   },
   rules: {
     // vuexのstateは引数変更を許可変更しないと書きづらい
-    'no-param-reassign': ['error', {
-      props: true,
-      ignorePropertyModificationsFor: ['state'],
-    }],
+    'no-param-reassign': [
+      'error',
+      {
+        props: true,
+        ignorePropertyModificationsFor: ['state'],
+      },
+    ],
 
     // 登録されたコンポーネントはPascalCaseを強制する
-    'vue/component-name-in-template-casing': ['error', 'PascalCase', {
-      registeredComponentsOnly: true,
-    }],
+    'vue/component-name-in-template-casing': [
+      'error',
+      'PascalCase',
+      {
+        registeredComponentsOnly: true,
+      },
+    ],
 
     // 属性値にはハイフン付きの名前を強制する
     'vue/attribute-hyphenation': ['error', 'always'],
+    'import/no-unresolved': 'off',
   },
   settings: {
-    'import/resolver': 'webpack'
+    'import/resolver': 'webpack',
   },
 };
