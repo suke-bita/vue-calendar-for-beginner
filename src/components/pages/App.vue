@@ -6,21 +6,11 @@
   </div>
 </template>
 <script>
-import axios from 'axios';
 import { mapActions, mapState } from 'vuex';
 import Header from '~/components/organisms/Header.vue';
 import Calender from '~/components/organisms/Calender.vue';
 import Modal from '~/components/organisms/Modal.vue';
 
-const url = 'https://holidays-jp.github.io/api/v1/date.json';
-const fetchHolidays = async () => {
-  try {
-    const res = await axios.get(url);
-    console.log(res);
-  } catch {
-    console.log('error');
-  }
-};
 export default {
   components: {
     Header,
@@ -31,8 +21,6 @@ export default {
     ...mapState(['date', 'isModal', 'taskList', 'selectedDate']),
   },
   created() {
-    fetchHolidays();
-
     // セルで管理する情報
     // 日にち
     this.initialize();

@@ -1,5 +1,8 @@
 <template>
-  <div :class="$style.cell" @click="setModal">{{ displayYear }}-{{ displayMonth }}-{{ displayDay }}</div>
+  <div :class="$style.cell" @click="setModal">
+    <span :class="$style.holiday">{{ holiday }}</span>
+    {{ displayYear }}-{{ displayMonth }}-{{ displayDay }}
+  </div>
 </template>
 
 <script>
@@ -27,6 +30,10 @@ export default {
       Type: Number,
       required: true,
     },
+    holidays: {
+      Type: Object,
+      required: true,
+    },
   },
   data() {
     return {
@@ -44,10 +51,6 @@ export default {
     thisMonthDays() {
       return this.days[this.month - 1];
     },
-    nextMonthDays() {
-      if (this.month === 12) return this.days[11];
-      return this.days[this.month];
-    },
     displayDay() {
       if (this.displayNumber <= 0) return this.lastMonthDays + this.displayNumber; // 先月
       return this.displayNumber <= this.thisMonthDays ? this.displayNumber : this.displayNumber - this.thisMonthDays; // 今月もしくは来月
@@ -62,12 +65,21 @@ export default {
       if (this.displayNumber <= 0 && this.month === 1) return this.year - 1; // 先月
       return this.displayNumber > this.thisMonthDays && this.month === 12 ? this.year + 1 : this.year; // 今月もしくは来月
     },
+    holiday() {
+      return this.holidays[this.formatDate];
+    },
+    formatDate() {
+      return `${this.displayYear}-${`0${String(this.displayMonth)}`.slice(-2)}-${`0${String(this.displayDay)}`.slice(
+        -2
+      )}`;
+    },
   },
   methods: {
     ...mapActions(['handleModal']),
     setModal() {
       this.handleModal('open');
-      this.$emit('handle-set-date', { date: `${this.displayYear}-${this.displayMonth}-${this.displayDay}` });
+      const date = this.formatDate;
+      this.$emit('handle-set-date', { date });
     },
   },
 };
@@ -77,5 +89,8 @@ export default {
 .cell {
   height: 100px;
   width: 100px;
+}
+.holiday {
+  color: palevioletred;
 }
 </style>

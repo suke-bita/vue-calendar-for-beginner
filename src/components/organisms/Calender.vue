@@ -10,12 +10,14 @@
         :weekday-index="date.weekdayIndex"
         :first-day="date.firstDay"
         :year="date.year"
+        :holidays="holidays"
         @handle-set-date="handleSetDate"
       />
     </div>
   </div>
 </template>
 <script>
+import axios from 'axios';
 import CalenderCell from '~/components/molecules/CalenderCell.vue';
 
 export default {
@@ -25,8 +27,25 @@ export default {
   props: {
     date: {},
   },
+  data() {
+    return {
+      holidays: [],
+    };
+  },
   static: {
     days: ['日', '月', '火', '水', '木', '金', '土'],
+  },
+  created() {
+    const url = 'https://holidays-jp.github.io/api/v1/date.json';
+    (async () => {
+      try {
+        const res = await axios.get(url);
+        this.holidays = res.data;
+        console.log(res.data);
+      } catch {
+        console.log('error');
+      }
+    })();
   },
   methods: {
     handleSetDate(payload) {
