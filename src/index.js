@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import './style/base.scss';
 import App from './components/pages/App.vue';
 import store from './store';
 
