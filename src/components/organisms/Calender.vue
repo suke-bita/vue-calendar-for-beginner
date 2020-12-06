@@ -8,6 +8,7 @@
         :index="index"
         :task-list="taskList"
         :day="day"
+        :today="today"
         @handle-set-date="handleSetDate"
         @handle-remove-task="handleRemoveTask"
       />
@@ -38,6 +39,10 @@ export default {
     taskList: {
       type: Array,
       default: () => [],
+    },
+    today: {
+      type: String,
+      default: '',
     },
   },
   static: {

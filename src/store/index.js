@@ -5,7 +5,7 @@ import { STORAGE_KEY } from '../constants/index';
 
 const days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 const getCalendar = (year, month) => {
-  const firstDay = new Date(year, month, 1);
+  const firstDay = new Date(year, month - 1, 1);
   const weekdayIndex = firstDay.getDay();
   const lastMonthDays = month === 1 ? days[11] : days[month - 2];
   const thisMonthDays = days[month - 1];
@@ -41,16 +41,17 @@ export default new Vuex.Store({
     taskList: [
       {
         date: '2020-12-20',
-        name: 'アイウエオ',
+        name: '予定1',
         id: '1',
       },
       {
         date: '2020-12-21',
-        name: 'アイウエオ',
+        name: 'タスク',
         id: '2',
       },
     ],
     holidays: {},
+    today: '',
   },
   getters: {
     displayDateList: (state) => {
@@ -83,6 +84,7 @@ export default new Vuex.Store({
         const holiday = state.holidays[date];
         return {
           num: day,
+          month,
           date,
           holiday,
           lastMonth,
@@ -94,9 +96,11 @@ export default new Vuex.Store({
   mutations: {
     setCalendar(state) {
       const today = new Date();
+      const day = today.getDate();
       const year = today.getFullYear();
       const month = today.getMonth() + 1;
       state.currentCalendar = getCalendar(year, month);
+      state.today = `${year}-${`0${String(month)}`.slice(-2)}-${`0${String(day)}`.slice(-2)}`;
     },
     setHolidays(state, payload) {
       state.holidays = payload.holidays;

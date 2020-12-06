@@ -6,6 +6,7 @@
       :holidays="holidays"
       :display-date-list="displayDateList"
       :task-list="taskList"
+      :today="today"
       @handle-set-date="setDate"
       @handle-remove-task="removeTask"
     />
@@ -38,7 +39,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(['isModal', 'selectedDate', 'holidays', 'taskList', 'currentCalendar']),
+    ...mapState(['isModal', 'selectedDate', 'holidays', 'taskList', 'currentCalendar', 'today']),
     ...mapGetters(['displayDateList']),
   },
   watch: {

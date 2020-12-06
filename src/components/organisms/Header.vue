@@ -2,7 +2,7 @@
   <div :class="$style.wrapper">
     <div>{{ year }}年 {{ month }}月</div>
     <div>
-      <button :class="$style.button" @click="prevMonth">Last Month</button
+      <button :class="$style.button" @click="prevMonth">Prev Month</button
       ><button :class="$style.button" @click="nextMonth">Next Month</button>
     </div>
   </div>

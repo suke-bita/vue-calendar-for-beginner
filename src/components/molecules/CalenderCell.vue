@@ -1,7 +1,7 @@
 <template>
   <div :class="[$style.cell, $style[modifierClass]]" @click="setModal">
-    {{ day.num }}
-    {{ day.holiday }}
+    <span v-if="day.num === 1">{{ day.month }}/</span>{{ day.num }} {{ day.holiday }}
+    <span v-if="isToday">今日</span>
     <div :class="[$style.wrapper, { 'is-hidden': isShorten }]">
       <div v-for="task in displayTaskList" :key="task.id" :class="$style.task">
         <span :class="$style.task__close" @click.stop="removeTask(task.id)">×</span>
@@ -31,6 +31,10 @@ export default {
       type: Array,
       default: () => [],
     },
+    today: {
+      type: String,
+      default: '',
+    },
   },
   data() {
     return {
@@ -42,13 +46,18 @@ export default {
       return this.taskList.filter((task) => task.date === this.day.date);
     },
     modifierClass() {
+      if (this.isToday) return 'cell--today';
+      if (this.day.lastMonth || this.day.nextMonth) return 'cell--darken';
       if (this.day.holiday) return 'cell--holiday';
       if (this.index === 0 || this.index % 7 === 0) return 'cell--sunday';
       if (this.index % 7 === 6) return 'cell--saturday';
-      return this.day.lastMonth || this.day.nextMonth ? 'cell--darken' : '';
+      return '';
     },
     extraTask() {
       return this.displayTaskList.length < 2 ? 0 : this.displayTaskList.length - 2;
+    },
+    isToday() {
+      return this.today === this.day.date;
     },
   },
   methods: {
@@ -68,6 +77,7 @@ export default {
 <style module lang="scss">
 .cell {
   background-color: ghostwhite;
+  color: #333;
   font-size: 10px;
   height: 100px;
   margin: 5px auto 0;
@@ -76,11 +86,7 @@ export default {
   position: relative;
   width: 98%;
   @media screen and (max-width: 400px) {
-    width: 100%;
-  }
-
-  &--darken {
-    background-color: rgba(0, 0, 0, 0.1);
+    max-width: 100%;
   }
 
   &--holiday {
@@ -94,6 +100,12 @@ export default {
   &--sunday {
     background-color: rgba(222, 157, 189, 0.3);
     color: red;
+  }
+  &--darken {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  &--today {
+    background-color: rgba(165, 156, 255, 0.5);
   }
 }
 
@@ -110,6 +122,7 @@ export default {
   background-color: deepskyblue;
   color: white;
   margin-bottom: 1px;
+  max-width: 100%;
   overflow: hidden;
   padding: 0 5px;
   padding-right: 10px;

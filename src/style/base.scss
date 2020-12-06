@@ -16,6 +16,7 @@ figure,
 blockquote,
 dl,
 dd {
+  color: #333;
   margin: 0;
 }
 
@@ -55,6 +56,10 @@ button,
 textarea,
 select {
   font: inherit;
+}
+
+.input{
+  outline:none;
 }
 
 button{
