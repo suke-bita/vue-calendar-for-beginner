@@ -23,6 +23,10 @@ export default {
       type: Object,
       required: true,
     },
+    index: {
+      type: Number,
+      required: true,
+    },
     taskList: {
       type: Array,
       default: () => [],
@@ -39,6 +43,8 @@ export default {
     },
     modifierClass() {
       if (this.day.holiday) return 'cell--holiday';
+      if (this.index === 0 || this.index % 7 === 0) return 'cell--sunday';
+      if (this.index % 7 === 6) return 'cell--saturday';
       return this.day.lastMonth || this.day.nextMonth ? 'cell--darken' : '';
     },
     extraTask() {
@@ -79,6 +85,15 @@ export default {
 
   &--holiday {
     background-color: rgba(222, 157, 189, 0.3);
+    color: red;
+  }
+  &--saturday {
+    background-color: rgba(171, 196, 255, 0.3);
+    color: dodgerblue;
+  }
+  &--sunday {
+    background-color: rgba(222, 157, 189, 0.3);
+    color: red;
   }
 }
 

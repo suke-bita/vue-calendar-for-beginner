@@ -33,5 +33,8 @@ export default {
 <style module lang="scss">
 .input {
   width: 92%;
+  @media screen and (max-width: 400px) {
+    width: 87%;
+  }
 }
 </style>

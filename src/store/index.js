@@ -81,7 +81,6 @@ export default new Vuex.Store({
 
         const date = `${year}-${`0${String(month)}`.slice(-2)}-${`0${String(day)}`.slice(-2)}`;
         const holiday = state.holidays[date];
-
         return {
           num: day,
           date,

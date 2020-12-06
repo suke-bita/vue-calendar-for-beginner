@@ -3,8 +3,9 @@
     <div :class="$style.calender">
       <div v-for="day in $options.static.days" :key="day" :class="$style.cell">{{ day }}</div>
       <CalenderCell
-        v-for="day in displayDateList"
+        v-for="(day, index) in displayDateList"
         :key="day.date"
+        :index="index"
         :task-list="taskList"
         :day="day"
         @handle-set-date="handleSetDate"
@@ -59,7 +60,7 @@ export default {
 .calender {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  margin: 10px;
+  margin: 10px 10px 0;
   min-width: 900px;
   @media screen and (max-width: 400px) {
     min-width: auto;

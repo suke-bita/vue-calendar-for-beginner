@@ -29,12 +29,20 @@ export default {
 
 <style module lang="scss">
 .wrapper {
+  align-items: center;
   display: flex;
   justify-content: space-between;
-  margin: 20px 20px 0;
+  padding: 20px 20px 0;
+  @media screen and (max-width: 400px) {
+    font-size: 10px;
+  }
 }
 .button {
   font-size: 12px;
   margin-left: 20px;
+  @media screen and (max-width: 400px) {
+    font-size: 10px;
+    margin-left: 10px;
+  }
 }
 </style>

@@ -62,6 +62,9 @@ export default {
   position: absolute;
   top: 0;
   width: 100%;
+  @media screen and (max-width: 400px) {
+    height: 100%;
+  }
 }
 
 .modal__inner {
@@ -69,12 +72,15 @@ export default {
   border-radius: 10px;
   height: 350px;
   left: 50%;
-  overflow: scroll;
   padding: 40px;
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);
   width: 500px;
+  @media screen and (max-width: 400px) {
+    padding: 20px;
+    width: 90%;
+  }
 }
 .modal__close {
   cursor: pointer;
@@ -83,6 +89,10 @@ export default {
   top: 10px;
 }
 .wrapper {
-  min-height: 210px;
+  height: 210px;
+  margin-bottom: 15px;
+  margin-top: 10px;
+  overflow: scroll;
+  padding: 0 10px;
 }
 </style>
