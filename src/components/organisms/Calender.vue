@@ -2,7 +2,13 @@
   <div>
     <div :class="$style.calender">
       <div v-for="day in $options.static.days" :key="day" :class="$style.cell">{{ day }}</div>
-      <CalenderCell v-for="day in displayDateList" :key="day.date" :day="day" @handle-set-date="handleSetDate" />
+      <CalenderCell
+        v-for="day in displayDateList"
+        :key="day.date"
+        :task-list="taskList"
+        :day="day"
+        @handle-set-date="handleSetDate"
+      />
     </div>
   </div>
 </template>
@@ -26,6 +32,10 @@ export default {
     displayDateList: {
       type: Array,
       required: true,
+    },
+    taskList: {
+      type: Array,
+      default: () => [],
     },
   },
   static: {

@@ -2,7 +2,7 @@
   <div :class="$style.modal" @click.self="handleModal('close')">
     <div :class="$style.modal__inner">
       <span :class="$style.modal__close" @click="handleModal('close')">✖️</span>
-      <ModalTaskList v-for="task in displayedTaskList" :key="setId(task.date)" :task="task.taskName" />
+      <ModalTaskList v-for="task in displayedTaskList" :key="task.id" :task="task.task" />
       <ModalTaskInput :date="selectedDate" @handle-add-task="handleAddTask" />
     </div>
   </div>
@@ -10,7 +10,7 @@
 
 <script>
 import { mapActions } from 'vuex';
-import uniqId from 'uniqid';
+
 import ModalTaskList from '~/components/molecules/ModalTaskList.vue';
 import ModalTaskInput from '~/components/molecules/ModalTaskInput.vue';
 
@@ -38,9 +38,6 @@ export default {
     ...mapActions(['handleModal']),
     handleAddTask(task) {
       this.$emit('handle-add-task', task);
-    },
-    setId(date) {
-      return uniqId(`${date}_`);
     },
   },
 };

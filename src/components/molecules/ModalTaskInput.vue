@@ -1,11 +1,13 @@
 <template>
   <div>
-    <input v-model="taskName" type="text" />
+    <input v-model="task" type="text" />
     <button @click="handleAddTask">+</button>
   </div>
 </template>
 
 <script>
+import uniqId from 'uniqid';
+
 export default {
   props: {
     date: {
@@ -15,13 +17,15 @@ export default {
   },
   data() {
     return {
-      taskName: '',
+      task: '',
     };
   },
   methods: {
     handleAddTask() {
-      const { taskName, date } = this;
-      this.$emit('handle-add-task', { taskName, date });
+      const { task, date } = this;
+      const id = uniqId();
+
+      this.$emit('handle-add-task', { task, date, id });
     },
   },
 };

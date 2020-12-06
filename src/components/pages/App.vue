@@ -5,6 +5,7 @@
       :current-calendar="currentCalendar"
       :holidays="holidays"
       :display-date-list="displayDateList"
+      :task-list="taskList"
       @handle-set-date="setDate"
     />
     <Modal v-if="isModal" :task-list="taskList" :selected-date="selectedDate" @handle-add-task="addTask" />
@@ -31,7 +32,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(['currentCalendar', 'isModal', 'taskList', 'selectedDate', 'holidays']),
+    ...mapState(['currentCalendar', 'isModal', 'selectedDate', 'holidays', 'taskList']),
     ...mapGetters(['displayDateList']),
   },
   created() {

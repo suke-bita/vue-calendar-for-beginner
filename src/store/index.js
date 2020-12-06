@@ -15,23 +15,32 @@ export default new Vuex.Store({
       lastMonthDays: '',
       thisMonthDays: '',
     },
-    displayDateList: [], // 表示するカレンダーの日
+    displayDateList: [
+      {
+        date: '',
+        holiday: '',
+        task: [],
+      },
+    ], // 表示するカレンダーの日
     isModal: false,
     selectedDate: '',
     taskList: [
       {
         date: '2020-12-20',
         task: 'アイウエオ',
+        id: 'aaa',
       },
       {
         date: '2020-12-21',
         task: 'アイウエオ',
+        id: 'aaaa',
       },
     ],
     holidays: {},
   },
   getters: {
     displayDateList: (state) => {
+      // カレンダー表示
       const array = [...Array(42).keys()]; // 0から41
       return array.map((i) => {
         const point = i - state.currentCalendar.weekdayIndex;
@@ -109,7 +118,9 @@ export default new Vuex.Store({
         month === 12 ? { ...currentCalendar, month: 1, year: year + 1 } : { ...currentCalendar, month: month + 1 };
     },
     addTask(state, payload) {
+      console.log(payload);
       state.taskList = [...state.taskList, payload];
+      console.log(state.taskList);
     },
   },
   actions: {
