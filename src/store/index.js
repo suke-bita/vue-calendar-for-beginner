@@ -42,12 +42,12 @@ export default new Vuex.Store({
       {
         date: '2020-12-20',
         name: 'アイウエオ',
-        id: 'aaa',
+        id: '1',
       },
       {
         date: '2020-12-21',
         name: 'アイウエオ',
-        id: 'aaaa',
+        id: '2',
       },
     ],
     holidays: {},
@@ -139,6 +139,9 @@ export default new Vuex.Store({
       const obj = JSON.parse(json);
       state.taskList = obj;
     },
+    removeTask(state, payload) {
+      state.taskList = state.taskList.filter((task) => task.id !== payload.id);
+    },
   },
   actions: {
     initialize({ commit }, payload) {
@@ -160,6 +163,9 @@ export default new Vuex.Store({
     },
     addTask({ commit }, payload) {
       commit('addTask', payload);
+    },
+    removeTask({ commit }, payload) {
+      commit('removeTask', payload);
     },
     saveTaskList({ commit }, payload) {
       commit('saveTaskList', payload);

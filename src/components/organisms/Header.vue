@@ -1,7 +1,10 @@
 <template>
-  <div>
+  <div :class="$style.wrapper">
     <div>{{ year }}年 {{ month }}月</div>
-    <div><button @click="prevMonth">-</button><button @click="nextMonth">+</button></div>
+    <div>
+      <button :class="$style.button" @click="prevMonth">Last Month</button
+      ><button :class="$style.button" @click="nextMonth">Next Month</button>
+    </div>
   </div>
 </template>
 <script>
@@ -23,3 +26,15 @@ export default {
   },
 };
 </script>
+
+<style module lang="scss">
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 20px 0;
+}
+.button {
+  font-size: 12px;
+  margin-left: 20px;
+}
+</style>

@@ -3,7 +3,14 @@
     <div :class="$style.modal__inner">
       <span :class="$style.modal__close" @click="handleModal('close')">✖️</span>
       {{ selectedDate }}
-      <ModalTaskList v-for="task in displayedTaskList" :key="task.id" :name="task.name" />
+      <div :class="$style.wrapper">
+        <ModalTaskList
+          v-for="task in displayedTaskList"
+          :key="task.id"
+          :task="task"
+          @handle-remove-task="handleRemoveTask"
+        />
+      </div>
       <ModalTaskInput :date="selectedDate" @handle-add-task="handleAddTask" />
     </div>
   </div>
@@ -40,6 +47,9 @@ export default {
     handleAddTask(task) {
       this.$emit('handle-add-task', task);
     },
+    handleRemoveTask(payload) {
+      this.$emit('handle-remove-task', payload);
+    },
   },
 };
 </script>
@@ -59,6 +69,7 @@ export default {
   border-radius: 10px;
   height: 350px;
   left: 50%;
+  overflow: scroll;
   padding: 40px;
   position: absolute;
   top: 50%;
@@ -66,8 +77,12 @@ export default {
   width: 500px;
 }
 .modal__close {
+  cursor: pointer;
   position: absolute;
   right: 10px;
   top: 10px;
+}
+.wrapper {
+  min-height: 210px;
 }
 </style>

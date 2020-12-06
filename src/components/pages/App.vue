@@ -7,8 +7,15 @@
       :display-date-list="displayDateList"
       :task-list="taskList"
       @handle-set-date="setDate"
+      @handle-remove-task="removeTask"
     />
-    <Modal v-if="isModal" :task-list="taskList" :selected-date="selectedDate" @handle-add-task="addTask" />
+    <Modal
+      v-if="isModal"
+      :task-list="taskList"
+      :selected-date="selectedDate"
+      @handle-add-task="addTask"
+      @handle-remove-task="removeTask"
+    />
   </div>
 </template>
 <script>
@@ -53,7 +60,7 @@ export default {
     })();
   },
   methods: {
-    ...mapActions(['initialize', 'setDate', 'addTask', 'setDisplayDateList', 'saveTaskList']),
+    ...mapActions(['initialize', 'setDate', 'addTask', 'setDisplayDateList', 'saveTaskList', 'removeTask']),
   },
 };
 </script>

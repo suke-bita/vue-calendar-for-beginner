@@ -8,6 +8,7 @@
         :task-list="taskList"
         :day="day"
         @handle-set-date="handleSetDate"
+        @handle-remove-task="handleRemoveTask"
       />
     </div>
   </div>
@@ -47,16 +48,22 @@ export default {
     handleSetDate(payload) {
       this.$emit('handle-set-date', payload);
     },
+    handleRemoveTask(payload) {
+      this.$emit('handle-remove-task', payload);
+    },
   },
 };
 </script>
 
 <style module lang="scss">
 .calender {
-  border: 1px solid black;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   margin: 10px;
+  min-width: 900px;
+  @media screen and (max-width: 400px) {
+    min-width: auto;
+  }
 }
 .cell {
   border-bottom: 1px dashed black;
@@ -64,5 +71,8 @@ export default {
   margin: 0 auto;
   text-align: center;
   width: 100px;
+  @media screen and (max-width: 400px) {
+    width: 100%;
+  }
 }
 </style>
