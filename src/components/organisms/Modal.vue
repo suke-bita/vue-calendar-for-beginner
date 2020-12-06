@@ -2,26 +2,31 @@
   <div :class="$style.modal" @click.self="handleModal('close')">
     <div :class="$style.modal__inner">
       <span :class="$style.modal__close" @click="handleModal('close')">✖️</span>
-      <ModalTask :task-list="displayedTaskList" :date="selectedDate" @handle-add-task="handleAddTask" />
-      <!--      TODO keyをユニークにする-->
+      <ModalTaskList v-for="task in displayedTaskList" :key="setId(task.date)" :task="task.taskName" />
+      <ModalTaskInput :date="selectedDate" @handle-add-task="handleAddTask" />
     </div>
   </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex';
-import ModalTask from '~/components/molecules/ModalTask.vue';
+import uniqId from 'uniqid';
+import ModalTaskList from '~/components/molecules/ModalTaskList.vue';
+import ModalTaskInput from '~/components/molecules/ModalTaskInput.vue';
 
 export default {
   components: {
-    ModalTask,
+    ModalTaskList,
+    ModalTaskInput,
   },
   props: {
     taskList: {
       type: Array,
+      default: () => [],
     },
     selectedDate: {
       type: String,
+      default: '',
     },
   },
   computed: {
@@ -33,6 +38,9 @@ export default {
     ...mapActions(['handleModal']),
     handleAddTask(task) {
       this.$emit('handle-add-task', task);
+    },
+    setId(date) {
+      return uniqId(`${date}_`);
     },
   },
 };
@@ -53,6 +61,7 @@ export default {
   border-radius: 10px;
   height: 350px;
   left: 50%;
+  padding: 40px;
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);

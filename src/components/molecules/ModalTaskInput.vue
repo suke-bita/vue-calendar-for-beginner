@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{ taskList }}
     <input v-model="taskName" type="text" />
     <button @click="handleAddTask">+</button>
   </div>
@@ -9,10 +8,6 @@
 <script>
 export default {
   props: {
-    taskList: {
-      type: Array,
-      default: () => [],
-    },
     date: {
       type: String,
       default: '',
