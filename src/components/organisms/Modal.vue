@@ -2,6 +2,7 @@
   <div :class="$style.modal" @click.self="handleModal('close')">
     <div :class="$style.modal__inner">
       <span :class="$style.modal__close" @click="handleModal('close')">✖️</span>
+      {{ selectedDate }}
       <ModalTaskList v-for="task in displayedTaskList" :key="task.id" :name="task.name" />
       <ModalTaskInput :date="selectedDate" @handle-add-task="handleAddTask" />
     </div>

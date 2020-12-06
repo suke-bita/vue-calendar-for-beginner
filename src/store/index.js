@@ -1,6 +1,7 @@
 // import node_modules
 import Vue from 'vue';
 import Vuex from 'vuex';
+import { STORAGE_KEY } from '../constants/index';
 
 const days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
@@ -120,9 +121,21 @@ export default new Vuex.Store({
     addTask(state, payload) {
       state.taskList = [...state.taskList, payload];
     },
+    saveTaskList(state) {
+      const json = JSON.stringify(state.taskList);
+      if (!json) return;
+      localStorage.setItem(STORAGE_KEY, json);
+    },
+    fetchLocalStorage(state) {
+      const json = localStorage.getItem(STORAGE_KEY);
+      if (json) return;
+      const obj = JSON.parse(json);
+      state.taskList = obj;
+    },
   },
   actions: {
     initialize({ commit }, payload) {
+      commit('fetchLocalStorage');
       commit('setCalendar');
       commit('setHolidays', payload);
     },
@@ -140,6 +153,9 @@ export default new Vuex.Store({
     },
     addTask({ commit }, payload) {
       commit('addTask', payload);
+    },
+    saveTaskList({ commit }, payload) {
+      commit('saveTaskList', payload);
     },
     setDisplayDateList({ commit }) {
       commit('setDisplayDateList');

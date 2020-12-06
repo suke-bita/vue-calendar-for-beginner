@@ -17,8 +17,7 @@ import axios from 'axios';
 import Header from '~/components/organisms/Header.vue';
 import Calender from '~/components/organisms/Calender.vue';
 import Modal from '~/components/organisms/Modal.vue';
-
-const HOLIDAY_URL = 'https://holidays-jp.github.io/api/v1/date.json';
+import { HOLIDAY_URL } from '../../constants/index';
 
 export default {
   components: {
@@ -35,6 +34,11 @@ export default {
     ...mapState(['currentCalendar', 'isModal', 'selectedDate', 'holidays', 'taskList']),
     ...mapGetters(['displayDateList']),
   },
+  watch: {
+    taskList() {
+      this.saveTaskList();
+    },
+  },
   created() {
     (async () => {
       try {
@@ -49,7 +53,7 @@ export default {
     })();
   },
   methods: {
-    ...mapActions(['initialize', 'setDate', 'addTask', 'setDisplayDateList']),
+    ...mapActions(['initialize', 'setDate', 'addTask', 'setDisplayDateList', 'saveTaskList']),
   },
 };
 </script>
