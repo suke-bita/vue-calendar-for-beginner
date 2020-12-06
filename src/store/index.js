@@ -4,6 +4,19 @@ import Vuex from 'vuex';
 import { STORAGE_KEY } from '../constants/index';
 
 const days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+const getCalendar = (year, month) => {
+  const firstDay = new Date(year, month, 1);
+  const weekdayIndex = firstDay.getDay();
+  const lastMonthDays = month === 1 ? days[11] : days[month - 2];
+  const thisMonthDays = days[month - 1];
+  return {
+    year,
+    month,
+    weekdayIndex,
+    lastMonthDays,
+    thisMonthDays,
+  };
+};
 
 Vue.use(Vuex);
 
@@ -70,8 +83,11 @@ export default new Vuex.Store({
         const holiday = state.holidays[date];
 
         return {
+          num: day,
           date,
           holiday,
+          lastMonth,
+          nextMonth,
         };
       });
     },
@@ -81,17 +97,7 @@ export default new Vuex.Store({
       const today = new Date();
       const year = today.getFullYear();
       const month = today.getMonth() + 1;
-      const firstDay = new Date(2020, state.currentCalendar.month, 1);
-      const weekdayIndex = firstDay.getDay();
-      const lastMonthDays = month === 1 ? days[11] : days[month - 2];
-      const thisMonthDays = days[month - 1];
-      state.currentCalendar = {
-        year,
-        month,
-        weekdayIndex,
-        lastMonthDays,
-        thisMonthDays,
-      };
+      state.currentCalendar = getCalendar(year, month);
     },
     setHolidays(state, payload) {
       state.holidays = payload.holidays;
@@ -105,18 +111,19 @@ export default new Vuex.Store({
     prevMonth(state) {
       const {
         currentCalendar: { month, year },
-        currentCalendar,
       } = state;
-      state.currentCalendar = // 1月の時は1年減らして12月にする
-        month === 1 ? { ...currentCalendar, month: 12, year: year - 1 } : { ...currentCalendar, month: month - 1 };
+      const thisMonth = month === 1 ? 12 : month - 1;
+      const thisYear = month === 1 ? year - 1 : year;
+
+      state.currentCalendar = getCalendar(thisYear, thisMonth);
     },
     nextMonth(state) {
       const {
         currentCalendar: { month, year },
-        currentCalendar,
       } = state;
-      state.currentCalendar = // 12月の時は1年足して1月にする
-        month === 12 ? { ...currentCalendar, month: 1, year: year + 1 } : { ...currentCalendar, month: month + 1 };
+      const thisMonth = month === 12 ? 1 : month + 1;
+      const thisYear = month === 12 ? year + 1 : year;
+      state.currentCalendar = getCalendar(thisYear, thisMonth);
     },
     addTask(state, payload) {
       state.taskList = [...state.taskList, payload];
@@ -128,7 +135,7 @@ export default new Vuex.Store({
     },
     fetchLocalStorage(state) {
       const json = localStorage.getItem(STORAGE_KEY);
-      if (json) return;
+      if (!json) return;
       const obj = JSON.parse(json);
       state.taskList = obj;
     },

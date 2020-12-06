@@ -31,7 +31,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(['currentCalendar', 'isModal', 'selectedDate', 'holidays', 'taskList']),
+    ...mapState(['isModal', 'selectedDate', 'holidays', 'taskList', 'currentCalendar']),
     ...mapGetters(['displayDateList']),
   },
   watch: {

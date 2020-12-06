@@ -1,6 +1,6 @@
 <template>
-  <div :class="$style.cell" @click="setModal">
-    {{ day.date }}
+  <div :class="[$style.cell, $style[modifierClass]]" @click="setModal">
+    {{ day.num }}
     {{ day.holiday }}
     <div v-for="task in displayTaskList" :key="task.id">{{ task.name }}</div>
   </div>
@@ -29,6 +29,9 @@ export default {
     displayTaskList() {
       return this.taskList.filter((task) => task.date === this.day.date);
     },
+    modifierClass() {
+      return this.day.lastMonth || this.day.nextMonth ? 'cell--darken' : '';
+    },
   },
   methods: {
     ...mapActions(['handleModal']),
@@ -43,8 +46,15 @@ export default {
 
 <style module lang="scss">
 .cell {
+  font-size: 10px;
   height: 100px;
+  margin: 5px auto 0;
+  padding: 5px;
   width: 100px;
+
+  &--darken {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
 }
 .holiday {
   color: palevioletred;

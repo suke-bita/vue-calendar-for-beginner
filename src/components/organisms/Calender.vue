@@ -56,9 +56,13 @@ export default {
   border: 1px solid black;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
+  margin: 10px;
 }
 .cell {
+  border-bottom: 1px dashed black;
   height: 30px;
+  margin: 0 auto;
+  text-align: center;
   width: 100px;
 }
 </style>
