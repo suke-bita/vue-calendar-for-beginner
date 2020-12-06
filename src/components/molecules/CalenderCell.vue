@@ -2,7 +2,7 @@
   <div :class="$style.cell" @click="setModal">
     {{ day.date }}
     {{ day.holiday }}
-    <div v-for="task in displayTaskList" :key="task.id">{{ task.task }}</div>
+    <div v-for="task in displayTaskList" :key="task.id">{{ task.name }}</div>
   </div>
 </template>
 

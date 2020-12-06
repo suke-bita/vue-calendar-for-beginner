@@ -19,7 +19,7 @@ export default new Vuex.Store({
       {
         date: '',
         holiday: '',
-        task: [],
+        taskList: [],
       },
     ], // 表示するカレンダーの日
     isModal: false,
@@ -27,12 +27,12 @@ export default new Vuex.Store({
     taskList: [
       {
         date: '2020-12-20',
-        task: 'アイウエオ',
+        name: 'アイウエオ',
         id: 'aaa',
       },
       {
         date: '2020-12-21',
-        task: 'アイウエオ',
+        name: 'アイウエオ',
         id: 'aaaa',
       },
     ],
@@ -118,9 +118,7 @@ export default new Vuex.Store({
         month === 12 ? { ...currentCalendar, month: 1, year: year + 1 } : { ...currentCalendar, month: month + 1 };
     },
     addTask(state, payload) {
-      console.log(payload);
       state.taskList = [...state.taskList, payload];
-      console.log(state.taskList);
     },
   },
   actions: {

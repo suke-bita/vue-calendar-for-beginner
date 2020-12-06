@@ -1,6 +1,6 @@
 <template>
   <div>
-    <input v-model="task" type="text" />
+    <input v-model="name" type="text" />
     <button @click="handleAddTask">+</button>
   </div>
 </template>
@@ -17,15 +17,15 @@ export default {
   },
   data() {
     return {
-      task: '',
+      name: '',
     };
   },
   methods: {
     handleAddTask() {
-      const { task, date } = this;
+      const { name, date } = this;
       const id = uniqId();
 
-      this.$emit('handle-add-task', { task, date, id });
+      this.$emit('handle-add-task', { name, date, id });
     },
   },
 };
