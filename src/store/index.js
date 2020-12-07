@@ -58,7 +58,7 @@ export default new Vuex.Store({
       // カレンダー表示
       const array = [...Array(42).keys()]; // 0から41
       return array.map((i) => {
-        const point = i - state.currentCalendar.weekdayIndex;
+        const point = i - state.currentCalendar.weekdayIndex + 1;
         const lastMonth = point < 1;
         const nextMonth = point > state.currentCalendar.thisMonthDays;
 
